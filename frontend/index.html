@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TodoFast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="logo">TodoFast</div>
+    <div class="logo-sub">Gerenciador de tarefas</div>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('login')">Entrar</button>
+      <button class="tab-btn" onclick="switchTab('register')">Criar conta</button>
+    </div>
+
+    <div id="auth-error" class="error-msg"></div>
+
+    <!-- LOGIN -->
+    <div id="tab-login">
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" id="login-btn" onclick="doLogin()">
+        <span>Entrar</span>
+      </button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="tab-register" style="display:none">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="reg-username" placeholder="meuusername" autocomplete="username">
+      </div>
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="reg-email" placeholder="seu@email.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="reg-password" placeholder="Mínimo 5 caracteres" autocomplete="new-password">
+      </div>
+      <button class="btn btn-primary" id="register-btn" onclick="doRegister()">
+        <span>Criar conta</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app-screen">
+  <nav class="topbar">
+    <span class="topbar-logo">TodoFast</span>
+    <div class="topbar-right">
+      <div class="user-badge">
+        <div class="user-avatar" id="avatar-initials">?</div>
+        <span class="user-name" id="user-display">—</span>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">sair</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Minhas Tarefas</div>
+        <div class="task-count" id="task-count-label">— tarefas</div>
+      </div>
+      <button class="add-btn" onclick="toggleForm()">
+        <span id="add-btn-icon">+</span>
+        <span>Nova tarefa</span>
+      </button>
+    </div>
+
+    <!-- CREATE FORM -->
+    <div class="form-card" id="create-form">
+      <div class="form-title">Nova tarefa</div>
+      <div class="form-row">
+        <div class="field">
+          <label>Título</label>
+          <input type="text" id="new-title" placeholder="Título da tarefa">
+        </div>
+      </div>
+      <div class="field">
+        <label>Descrição</label>
+        <textarea id="new-desc" placeholder="Descreva a tarefa..."></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="create-btn" onclick="createTask()" style="padding:9px 20px;width:auto">
+          <span>Criar tarefa</span>
+        </button>
+        <button class="btn btn-ghost" onclick="toggleForm()">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
+      <button class="filter-btn" onclick="setFilter('pending', this)">Pendentes</button>
+      <button class="filter-btn" onclick="setFilter('done', this)">Concluídas</button>
+    </div>
+
+    <!-- TASK LIST -->
+    <div class="task-list" id="task-list">
+      <div style="text-align:center;padding:2rem;color:var(--muted);font-size:12px;">Carregando...</div>
+    </div>
+  </main>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <div class="modal-title">Editar tarefa</div>
+    <input type="hidden" id="edit-task-id">
+    <div class="field">
+      <label>Título</label>
+      <input type="text" id="edit-title" placeholder="Título da tarefa">
+    </div>
+    <div class="field">
+      <label>Descrição</label>
+      <textarea id="edit-desc" placeholder="Descrição..."></textarea>
+    </div>
+    <div class="field">
+      <label>Status</label>
+      <select id="edit-status" style="background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 14px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;width:100%;outline:none;cursor:pointer;">
+        <option value="false">Pendente</option>
+        <option value="true">Concluída</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="save-btn" onclick="saveEdit()">Salvar</button>
+      <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
