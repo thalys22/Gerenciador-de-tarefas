@@ -2,19 +2,14 @@
 
 API robusta para gerenciamento de tarefas (To-Do List) construída com **FastAPI**, seguindo princípios de arquitetura limpa, com suporte a autenticação JWT, persistência de dados e separação de responsabilidades.
 
-## 1. Visão Geral
+A aplicação é uma solução Full Stack completa que permite o gerenciamento de usuários e suas respectivas tarefas através de uma interface web moderna e responsiva. Inclui:
 
-A aplicação permite o gerenciamento completo de usuários e suas respectivas tarefas. Inclui:
-
--   **Gerenciamento de Usuários**: Cadastro e autenticação.
-    
--   **Gestão de Tarefas**: CRUD completo de tarefas vinculadas ao usuário.
-    
--   **Segurança**: Autenticação via tokens JWT (JSON Web Tokens).
-    
--   **Arquitetura Modular**: Divisão clara entre lógica de negócio (services), modelos de dados (models) e interface (api).
-    
--   **Validação**: Uso intensivo de Pydantic para garantia de integridade dos dados.
+-   **Interface Web Moderna**: Design premium com tema escuro, animações suaves e totalmente responsiva.
+-   **Gerenciamento de Usuários**: Sistema completo de cadastro e login integrado ao backend.
+-   **Gestão de Tarefas (Real-time)**: CRUD completo com atualizações instantâneas na interface.
+-   **Filtros Inteligentes**: Visualização rápida de tarefas "Todas", "Pendentes" ou "Concluídas".
+-   **Segurança**: Autenticação via tokens JWT com armazenamento seguro no frontend.
+-   **Validação**: Verificação de dados tanto no cliente (JS) quanto no servidor (Pydantic).
     
 
 **Versão**: 1.0.0
@@ -38,40 +33,23 @@ O projeto adota uma estrutura organizada para facilitar a manutenção e escalab
 
 ## 3. Estrutura do Repositório
 
-Plaintext
-
 ```
-FastApi/Todo_Fast/
+Todo_Fast/
 │
-├── app/
-│   ├── api/                          # Camada de Interface (Handlers)
-│   │   ├── api_v1/
-│   │   │   ├── handlers/             # Implementação dos endpoints (task, user)
-│   │   │   └── router.py             # Agregador de rotas da V1
-│   │   ├── auth/                     # Endpoints de autenticação (JWT)
-│   │   └── depedencies/              # Injeção de dependência (Auth deps)
-│   │
+├── app/                              # Backend (FastAPI)
+│   ├── api/                          # Interface e Handlers
 │   ├── core/                         # Configurações e Segurança
-│   │   ├── config.py                 # Variáveis de ambiente e settings
-│   │   └── security.py               # Lógica de JWT e Criptografia
-│   │
-│   ├── models/                       # Entidades (Banco de Dados)
-│   │   ├── user_model.py
-│   │   └── task_model.py
-│   │
-│   ├── schemas/                      # Esquemas de Validação (Pydantic)
-│   │   ├── user_schema.py
-│   │   ├── task_schema.py
-│   │   └── auth_schema.py
-│   │
-│   ├── services/                     # Camada de Lógica de Negócio
-│   │   ├── user_service.py
-│   │   └── task_service.py
-│   │
-│   ├── app.py                        # Ponto de entrada da aplicação
-│   └── .env                          # Variáveis sensíveis
-└── Code/                             # Scripts de exemplo e aprendizado
-
+│   ├── models/                       # Banco de Dados (Beanie)
+│   ├── schemas/                      # Validação (Pydantic)
+│   ├── services/                     # Lógica de Negócio
+│   └── app.py                        # Ponto de entrada
+│
+├── frontend/                         # Interface Web
+│   ├── css/                          # Estilos
+│   ├── js/                           # Lógica do Cliente
+│   └── index.html                    # HTML Principal
+│
+└── requirements.txt                  # Dependências Python
 ```
 
 ## 4. Instalação
@@ -116,18 +94,20 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 ```
 
-## 6. Execução Local
-
+### Backend (API)
 Para iniciar o servidor de desenvolvimento:
-
-Bash
-
+```bash
+# Dentro da pasta principal
+cd app
+uvicorn app:app --reload
 ```
-python app/app.py
+Acesse a documentação: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-```
-
-Acesse a documentação interativa em: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+### Frontend (Web)
+Não é necessário instalar nada para o front. Basta servir o arquivo estático:
+1.  Use a extensão **Live Server** no VS Code para abrir o arquivo `frontend/index.html`.
+2.  Ou simplesmente abra o arquivo `index.html` em seu navegador.
+3.  O frontend se conectará automaticamente à API rodando na porta 8000.
 
 ## 7. Endpoints Principais
 
@@ -143,17 +123,17 @@ Acesse a documentação interativa em: [http://127.0.0.1:8000/docs](http://127.0
 |            |                          |                                               |
 
 
-## 8. Tecnologias Utilizadas
+### Backend
+-   **FastAPI**: Framework de alto desempenho.
+-   **Beanie (ODM)**: Integração assíncrona com MongoDB.
+-   **Pydantic V2**: Validação de dados ultrarrápida.
+-   **PyJWT/Passlib**: Segurança e criptografia.
 
--   **FastAPI**: Framework web moderno e de alto desempenho.
-    
--   **Pydantic**: Validação de dados e gestão de configurações.
-    
--   **Passlib (Bcrypt)**: Hash de senhas para segurança.
-    
--   **PyJWT**: Geração e validação de tokens JWT.
-    
--   **Python Dotenv**: Gestão de variáveis de ambiente.
+### Frontend
+-   **Vanilla JS**: Lógica pura, sem frameworks pesados.
+-   **CSS3 Moderno**: Grid, Flexbox e Variáveis para tema dinâmico.
+-   **Fetch API**: Comunicação assíncrona com o backend.
+-   **Google Fonts**: Tipografia premium (Inter/Outfit).
     
 
 ----------
