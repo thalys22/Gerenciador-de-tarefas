@@ -1,4 +1,6 @@
-const API = 'http://localhost:8000/api/v1';
+const API = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+  ? 'http://localhost:8000/api/v1' 
+  : '/api/v1';
 let token = null;
 let tasks = [];
 let currentFilter = 'all';
