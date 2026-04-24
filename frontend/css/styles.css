@@ -19,7 +19,7 @@
 }
 
 body {
-  font-family: 'DM Mono', monospace;
+  font-family: Arial, Helvetica, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -59,7 +59,7 @@ body {
 }
 
 .logo {
-  font-family: 'DM Serif Display', serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 28px;
   color: var(--accent);
   letter-spacing: -0.5px;
