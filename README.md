@@ -80,18 +80,18 @@ Todo_Fast/
     ```
     
 
-## 5. Configuração (.env)
+## 5. Banco de Dados em Nuvem e Configuração (.env)
 
-Crie um arquivo `.env` na pasta `app/` seguindo o modelo:
+O projeto utiliza o **MongoDB Atlas** (banco de dados NoSQL em nuvem) junto com o **Beanie ODM** para persistência de dados.
 
-Snippet de código
+Crie um arquivo `.env` na pasta `app/` seguindo o modelo abaixo e certifique-se de preencher a string de conexão com o seu cluster do MongoDB:
 
-```
+```env
 JWT_SECRET_KEY=sua_chave_secreta_aqui
 JWT_REFRESH_SECRET_KEY=sua_chave_de_refresh_aqui
+MONGO_CONNECTION_STRING="mongodb+srv://<usuario>:<senha>@<cluster>.mongodb.net/TodoFast?retryWrites=true&w=majority"
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
-
 ```
 
 ### Backend (API)

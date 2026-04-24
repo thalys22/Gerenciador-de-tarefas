@@ -5,7 +5,7 @@ from beanie import init_beanie
 from models.user_model import User
 from api.api_v1.router import router
 from models.task_model import Task
-
+from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -25,8 +25,15 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def app_init():
+    client = AsyncIOMotorClient(settings.MONGO_CONNECTION_STRING)
+    # Monkeypatch for Beanie 2.1.0 compatibility with newer Motor versions
+    try:
+        client.append_metadata = lambda x: None
+    except Exception:
+        object.__setattr__(client, "append_metadata", lambda x: None)
+        
     await init_beanie(
-        connection_string=settings.MONGO_CONNECTION_STRING,
+        database=client.get_default_database(),
         document_models=[
             User,
             Task

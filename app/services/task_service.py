@@ -23,10 +23,16 @@ class TaskService:
   @staticmethod
   async def update_task(user: User, task_id:UUID, data: TaskUpdate):
     task = await TaskService.detail(user, task_id)
+    if not task:
+      return None
+    
     update_data = data.model_dump(exclude_unset=True)
+    await task.update({"$set": update_data})
+    
+    # Atualiza o objeto local para retornar os dados corretos
     for key, value in update_data.items():
       setattr(task, key, value)
-    await task.save()
+      
     return task
 
   @staticmethod

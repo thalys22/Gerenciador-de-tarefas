@@ -11,7 +11,7 @@ class TaskCreate(BaseModel):
 class TaskUpdate(BaseModel):
   title: Optional[str] = None
   description: Optional[str] = None
-  status: Optional[bool] = False
+  status: Optional[bool] = None
 
 class TaskDetail(BaseModel):
   task_id: UUID
